@@ -42,9 +42,10 @@ def home():
     return "Stable Scraper is Running 24/7"
 
 def keep_alive():
-    t = threading.Thread(target=lambda: app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)), debug=False))
-    t.daemon = True
-    t.start()
+    def run():
+        app.run(host="0.0.0.0", port=5000)
+
+    threading.Thread(target=run).start()
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
@@ -255,10 +256,11 @@ def extract_deep_details(html):
 
 def call_api(endpoint, payload):
     try:
-        payload["secret_key"] = SECRET_KEY
-        resp = requests.post(f"{API_BASE_URL}/{endpoint}", json=payload, timeout=8)
+        payload["key"] = SECRET_KEY
+        resp = requests.post(API_BASE_URL, json=payload, timeout=10)
         return resp.json()
-    except: return None
+    except:
+        return None
 def parse_smart_cookie(c_in):
     c_in = c_in.strip()
 
@@ -940,18 +942,8 @@ summary += "==============================\n"
                 time.sleep(15)
             else:
                 time.sleep(5)
-
-from flask import Flask
-import threading
-
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "Bot running successfully ✅"
-
-def run_web():
-    app.run(host="0.0.0.0", port=5000)
+if __name__ == "__main__":
+    main()
 
 if __name__ == "__main__":
     threading.Thread(target=run_web).start()
