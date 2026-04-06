@@ -762,7 +762,7 @@ def main():
                 # Generate and Send Summary File
                 if hits_list and send_file:
                     try:
-                        summary = "==============================\n"
+summary = "==============================\n"
 summary += "NETFLIX ACCOUNT DETAILS\n"
 summary += "==============================\n\n"
 
@@ -770,10 +770,10 @@ for res, cookie in hits_list:
     data = res.get("data", {})
 
     match = re.search(r'NetflixId[=\s]+([^;\s]+)', cookie)
-if match:
-    netflix_id = f"NetflixId={match.group(1)}"
-else:
-    netflix_id = "Not Found"
+    if match:
+        netflix_id = f"NetflixId={match.group(1)}"
+    else:
+        netflix_id = "Not Found"
 
     summary += f"Country : {res.get('country','Unknown')}\n"
     summary += f"Email   : {data.get('email','N/A')}\n"
