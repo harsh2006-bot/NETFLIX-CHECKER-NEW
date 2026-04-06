@@ -767,11 +767,11 @@ summary += "==============================\n\n"
 for res, cookie in hits_list:
     data = res.get("data", {})
 
+    match = re.search(r'NetflixId[=\s]+([^;\s]+)', cookie)
+if match:
+    netflix_id = f"NetflixId={match.group(1)}"
+else:
     netflix_id = "Not Found"
-    for part in cookie.split(";"):
-        if "NetflixId=" in part:
-            netflix_id = part.strip()
-            break
 
     summary += f"Country : {res.get('country','Unknown')}\n"
     summary += f"Email   : {data.get('email','N/A')}\n"
