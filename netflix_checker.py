@@ -760,7 +760,7 @@ def main():
                     increment_daily_usage(uid, len(cookies))
                 
                 # Generate and Send Summary File
-            if hits_list and send_file:
+          if hits_list and send_file:
     try:
         summary = "==============================\n"
         summary += "NETFLIX ACCOUNT DETAILS\n"
