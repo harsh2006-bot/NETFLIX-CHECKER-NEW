@@ -760,45 +760,46 @@ def main():
                     increment_daily_usage(uid, len(cookies))
                 
                 # Generate and Send Summary File
-                if hits_list and send_file:
-                    try:
-summary = "==============================\n"
-summary += "NETFLIX ACCOUNT DETAILS\n"
-summary += "==============================\n\n"
+            if hits_list and send_file:
+    try:
+        summary = "==============================\n"
+        summary += "NETFLIX ACCOUNT DETAILS\n"
+        summary += "==============================\n\n"
 
-for res, cookie in hits_list:
-    data = res.get("data", {})
+        for res, cookie in hits_list:
+            data = res.get("data", {})
 
-    match = re.search(r'NetflixId[=\s]+([^;\s]+)', cookie)
-    if match:
-        netflix_id = f"NetflixId={match.group(1)}"
-    else:
-        netflix_id = "Not Found"
+            match = re.search(r'NetflixId[=\s]+([^;\s]+)', cookie)
+            if match:
+                netflix_id = f"NetflixId={match.group(1)}"
+            else:
+                netflix_id = "Not Found"
 
-    summary += f"Country : {res.get('country','Unknown')}\n"
-    summary += f"Email   : {data.get('email','N/A')}\n"
-    summary += f"Plan    : {data.get('plan','Unknown')}\n"
-    summary += f"Quality : {data.get('quality','Unknown')}\n"
-    summary += f"Expiry  : {data.get('expiry','N/A')}\n\n"
+            summary += f"Country : {res.get('country','Unknown')}\n"
+            summary += f"Email   : {data.get('email','N/A')}\n"
+            summary += f"Plan    : {data.get('plan','Unknown')}\n"
+            summary += f"Quality : {data.get('quality','Unknown')}\n"
+            summary += f"Expiry  : {data.get('expiry','N/A')}\n\n"
 
-    summary += "NETFLIX ID:\n"
-    summary += f"{netflix_id}\n\n"
+            summary += "NETFLIX ID:\n"
+            summary += f"{netflix_id}\n\n"
 
-    summary += "FULL COOKIE:\n"
-    summary += f"{cookie}\n"
+            summary += "FULL COOKIE:\n"
+            summary += f"{cookie}\n"
 
-    summary += "------------------------------\n"
+            summary += "------------------------------\n"
 
-summary += "\n==============================\n"
-summary += "Checked by @F88UF\n"
-summary += "Join Channel: https://t.me/F88UF9844\n"
-summary += "==============================\n"
-                        with io.BytesIO(summary.encode('utf-8')) as f:
-                            f.name = f"Netflix_Hits_by_@F88UF_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
-                            bot.send_document(chat_id, f, caption="📂 **Hits File by @F88UF**")
-                    except Exception as e:
-                        print(f"Summary Error: {e}")
+        summary += "\n==============================\n"
+        summary += "Checked by @F88UF\n"
+        summary += "Join Channel: https://t.me/F88UF9844\n"
+        summary += "==============================\n"
 
+        with io.BytesIO(summary.encode('utf-8')) as f:
+            f.name = f"Netflix_Hits_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+            bot.send_document(chat_id, f, caption="📂 Hits File Ready")
+
+    except Exception as e:
+        print("Summary Error:", e)
                 try:
                     bot.send_message(chat_id, f"✅ **Check Complete.** Hits: {valid_count}", parse_mode="Markdown")
                     if limit_warning:
