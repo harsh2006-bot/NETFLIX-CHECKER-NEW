@@ -54,8 +54,8 @@ HEADERS = {
 }
 
 # API Configuration
-API_BASE_URL = "http://nftgenapi.onrender.com/api"
-SECRET_KEY = "KUROSAKI_YtkX2SnPDdtn0jU9fVyE0iSIGnjPaYIO"
+API_BASE_URL = "https://nftoken.site/v1/api.php"
+SECRET_KEY = "NFK_dda3ee3932171d33d94067e3"
 
 CURRENCY_MAP = {
     "US": "$", "GB": "£", "IN": "₹", "CA": "C$", "AU": "A$", "BR": "R$", 
